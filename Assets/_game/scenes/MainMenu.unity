@@ -701,6 +701,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2191530323992797440, guid: 9de142e1ba571774bbf60f3395e0d9c7,
+        type: 3}
+      propertyPath: kinematicManager
+      value: 
+      objectReference: {fileID: 1579180087064937780, guid: 36e23e4c4a35637429ebe69bc0a5e6a8,
+        type: 3}
     - target: {fileID: 2191530323992797563, guid: 9de142e1ba571774bbf60f3395e0d9c7,
         type: 3}
       propertyPath: m_Name

@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 1608867064053328123}
   - component: {fileID: 1608867064053328116}
   - component: {fileID: 768073727}
-  - component: {fileID: 7224388851197201819}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -138,15 +137,3 @@ MonoBehaviour:
   _offlineScene: Assets/_game/scenes/MainMenu.unity
   _onlineScene: Assets/_game/scenes/OutdoorsScene.unity
   _replaceScenes: 0
---- !u!114 &7224388851197201819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1608867064053328125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a20dd1441b0642488f596db881fce1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

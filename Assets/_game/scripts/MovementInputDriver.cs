@@ -104,12 +104,14 @@ public class MovementInputDriver : NetworkBehaviour
     {
         if (md.grounded)
         {
-            md.moveDirection.x = md.moveVector.x;
-            md.moveDirection.y = 0;
-            md.moveDirection.z = md.moveVector.y;
+            Vector3 moveDirectionForward = transform.forward * md.moveVector.y;
+            Vector3 moveDirectionSide = transform.right * md.moveVector.x;
 
-            md.moveDirection *= speed;
-            md.moveDirection = Quaternion.Euler(0, transform.eulerAngles.y, 0) * md.moveDirection;
+            Vector3 direction = (moveDirectionForward + moveDirectionSide).normalized;
+
+            md.moveDirection = direction * speed;
+
+
             if (md.jump)
             {
                 md.moveDirection.y = jumpSpeed;
@@ -118,9 +120,7 @@ public class MovementInputDriver : NetworkBehaviour
 
         md.moveDirection.y += gravity * (float)base.TimeManager.TickDelta; // gravity is negative...
         _characterController.Move(md.moveDirection * (float)base.TimeManager.TickDelta);
-        _rotation += md.mouseMovement.x;
-        transform.rotation = Quaternion.AngleAxis(_rotation, Vector3.up);
-
+        transform.Rotate(0.0f, md.mouseMovement.x, 0.0f, Space.World);
         characterCamera.UpdateWithInput(md.mouseMovement);
         _moveDirection = md.moveDirection;
     }
@@ -145,7 +145,8 @@ public class MovementInputDriver : NetworkBehaviour
 
     public void OnMouseMovement(InputAction.CallbackContext context)
     {
-
+        if (!base.IsOwner)
+            return;
         _cameraInput = context.ReadValue<Vector2>() * sensitivity;
 
         // Prevent moving the camera while the cursor isn't locked

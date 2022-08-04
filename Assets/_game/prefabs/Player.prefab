@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 5017406318727838937}
   - component: {fileID: 3237999870554456704}
   - component: {fileID: 5553116492021792249}
-  - component: {fileID: 8505314824378945451}
+  - component: {fileID: 4080750915819014179}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -152,7 +152,9 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 7623897832032417831}
   - {fileID: 5553116492021792249}
-  - {fileID: 8505314824378945451}
+  - {fileID: 4080750915819014179}
+  - {fileID: 3372058750451864790}
+  - {fileID: 1429449048721336421}
   SceneTransformProperties:
     Position: {x: 0, y: 60, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -186,8 +188,8 @@ MonoBehaviour:
     Position: 1
     Rotation: 1
     Scale: 0
-  _interpolation: 2
-  _extrapolation: 2
+  _interpolation: 1
+  _extrapolation: 1
   _enableTeleport: 0
   _teleportThreshold: 1
   _clientAuthoritative: 0
@@ -369,7 +371,7 @@ MonoBehaviour:
   speed: 8
   gravity: -9.8
   characterCamera: {fileID: 3372058750451864790}
---- !u!114 &8505314824378945451
+--- !u!114 &4080750915819014179
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -408,6 +410,7 @@ GameObject:
   - component: {fileID: 6581339656502611782}
   - component: {fileID: 7794415048728407756}
   - component: {fileID: 3372058750451864790}
+  - component: {fileID: 1429449048721336421}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -618,4 +621,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10fe3a92418a2ae49b2806f71ec13090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: 429050773797061400}
+  _networkObjectCache: {fileID: 429050773797061400}
   yRotationLimit: 88
+--- !u!114 &1429449048721336421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8752452222280290732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 4
+  _addedNetworkObject: {fileID: 429050773797061400}
+  _networkObjectCache: {fileID: 429050773797061400}
+  _synchronizeParent: 0
+  _packing:
+    Position: 1
+    Rotation: 1
+    Scale: 0
+  _interpolation: 2
+  _extrapolation: 2
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  _clientAuthoritative: 1
+  _sendToOwner: 1
+  _interval: 1
+  _synchronizePosition: 1
+  _positionSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeRotation: 1
+  _rotationSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeScale: 1
+  _scaleSnapping:
+    X: 0
+    Y: 0
+    Z: 0
