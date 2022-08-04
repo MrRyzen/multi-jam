@@ -13,6 +13,7 @@ public class MovementInputDriver : NetworkBehaviour
     public struct MoveInputData
     {
         public Vector2 moveVector;
+        public Vector2 mouseMovement;
         public Vector3 moveDirection;
         public bool jump;
         public bool grounded;
@@ -35,19 +36,24 @@ public class MovementInputDriver : NetworkBehaviour
 
     private CharacterController _characterController;
     private Vector2 _moveInput;
+    private Vector2 _cameraInput;
+    private float _rotation;
     private Vector3 _moveDirection;
     private bool _jump;
     [SerializeField] public float jumpSpeed = 6f;
+    [SerializeField] public float sensitivity = 6f;
     [SerializeField] public float speed = 8f;
     [SerializeField] public float gravity = -9.8f; // negative acceleration in y - remember physics?
+    public CharacterCamera characterCamera;
 
     #endregion
 
     private void Start()
     {
         InstanceFinder.TimeManager.OnTick += TimeManager_OnTick; // Could also be in Awake
-        _characterController = GetComponent(typeof(CharacterController)) as CharacterController;
+        _characterController = GetComponent<CharacterController>();
         _jump = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     public override void OnStartClient()
     {
@@ -68,7 +74,8 @@ public class MovementInputDriver : NetworkBehaviour
             jump = _jump,
             grounded = _characterController.isGrounded,
             moveVector = _moveInput,
-            moveDirection = _moveDirection
+            moveDirection = _moveDirection,
+            mouseMovement = _cameraInput
         };
     }
     private void TimeManager_OnTick()
@@ -102,6 +109,7 @@ public class MovementInputDriver : NetworkBehaviour
             md.moveDirection.z = md.moveVector.y;
 
             md.moveDirection *= speed;
+            md.moveDirection = Quaternion.Euler(0, transform.eulerAngles.y, 0) * md.moveDirection;
             if (md.jump)
             {
                 md.moveDirection.y = jumpSpeed;
@@ -110,6 +118,10 @@ public class MovementInputDriver : NetworkBehaviour
 
         md.moveDirection.y += gravity * (float)base.TimeManager.TickDelta; // gravity is negative...
         _characterController.Move(md.moveDirection * (float)base.TimeManager.TickDelta);
+        _rotation += md.mouseMovement.x;
+        transform.rotation = Quaternion.AngleAxis(_rotation, Vector3.up);
+
+        characterCamera.UpdateWithInput(md.mouseMovement);
         _moveDirection = md.moveDirection;
     }
 
@@ -130,6 +142,19 @@ public class MovementInputDriver : NetworkBehaviour
             return;
         _moveInput = context.ReadValue<Vector2>();
     }
+
+    public void OnMouseMovement(InputAction.CallbackContext context)
+    {
+
+        _cameraInput = context.ReadValue<Vector2>() * sensitivity;
+
+        // Prevent moving the camera while the cursor isn't locked
+        if (Cursor.lockState != CursorLockMode.Locked)
+        {
+            _cameraInput = Vector2.zero;
+        }
+    }
+
     public void OnJump(InputAction.CallbackContext context)
     {
         if (!base.IsOwner)

@@ -9,8 +9,9 @@ public class CharacterCamera : MonoBehaviour
 
     private Vector2 rotation = Vector2.zero;
 
-    public void UpdateWithInput(Vector3 rotationInput)
+    public void UpdateWithInput(Vector2 rotationInput)
     {
+        Debug.Log(rotationInput);
         rotation.y += rotationInput.y;
         rotation.y = Mathf.Clamp(rotation.y, -yRotationLimit, yRotationLimit);
         var yQuat = Quaternion.AngleAxis(rotation.y, Vector3.left);

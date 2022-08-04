@@ -54,6 +54,7 @@ public class PlayerInputDriver : NetworkBehaviour
         InstanceFinder.TimeManager.OnTick += TimeManager_OnTick; // Could also be in Awake
         _characterController = GetComponent<EntityController>();
         _jump = false;
+         Cursor.lockState = CursorLockMode.Locked;
     }
 
     public override void OnStartClient()
